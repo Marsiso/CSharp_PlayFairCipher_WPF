@@ -25,7 +25,7 @@
 
         <!--KEYWORD GRID-->
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-              HorizontalAlignment="Stretch" Background="#FF2196F3"
+              HorizontalAlignment="Stretch" Background="#FF640064"
               VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -42,14 +42,13 @@
                    VerticalAlignment="Center" HorizontalAlignment="Stretch" />
             <Frame Grid.Column="1" Background="#FF27273A" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
             <TextBox x:Name="TxtBoxKeyWord" Grid.Column="1" MaxLines="1" VerticalAlignment="Center"
-                     HorizontalAlignment="Stretch"
+                     HorizontalAlignment="Stretch" Text="{Binding KeyWord, Mode=TwoWay}"
                      HorizontalContentAlignment="Stretch" TextAlignment="Left" TextWrapping="Wrap"
                      Background="#FF27273A" FontSize="12"
                      BorderBrush="#00ABADB3" Foreground="White" SelectionTextBrush="#FF0078D7" SelectionBrush="White"
                      BorderThickness="0,0,0,0" />
-            <Button x:Name="BtnKeyWord" Grid.Column="2" Content="SAVE" VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch" Width="60" Background="{x:Null}" Foreground="White"
-                    FontWeight="Bold" HorizontalContentAlignment="Center" />
+            <Label Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="60"
+                   Background="{x:Null}" HorizontalContentAlignment="Center" />
         </Grid>
 
         <!--LABEL GRID-->
@@ -85,11 +84,11 @@
             </Grid.RowDefinitions>
 
             <Button x:Name="BtnEnglish" Grid.Column="0" Content="ENGLISH" VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch" Background="#FF0078D7" Foreground="White"
-                    FontWeight="Bold" />
+                    HorizontalAlignment="Stretch" Background="DarkGreen" Foreground="White"
+                    FontWeight="Bold" Click="BtnEnglish_OnClick" />
             <Button x:Name="BtnCzech" Grid.Column="1" Content="CZECH" VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch" Foreground="White"
-                    FontWeight="Bold" Background="#FFEA4833" />
+                    FontWeight="Bold" Background="#FF960000" Click="BtnCzech_OnClick" />
         </Grid>
 
         <!--BTN GRID-->
@@ -104,11 +103,11 @@
             </Grid.RowDefinitions>
 
             <Button x:Name="BtnEncryption" Grid.Column="0" Content="ENCRYPTION" VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch" Background="#FF0078D7" Foreground="White"
-                    FontWeight="Bold" />
+                    HorizontalAlignment="Stretch" Background="DarkGreen" Foreground="White"
+                    FontWeight="Bold" Click="BtnEncryption_OnClick" />
             <Button x:Name="BtnDecryption" Grid.Column="1" Content="DECRYPTION" VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch" Foreground="White"
-                    FontWeight="Bold" Background="#FFEA4833" />
+                    FontWeight="Bold" Background="#FF960000" Click="BtnDecryption_OnClick" />
         </Grid>
 
         <!--INPUT/OUTPUT GRID-->
@@ -134,7 +133,8 @@
                      HorizontalContentAlignment="Stretch" TextAlignment="Left" TextWrapping="WrapWithOverflow"
                      Background="#FF27273A" FontSize="12"
                      BorderBrush="#00ABADB3" Foreground="White" SelectionTextBrush="#FF0078D7" SelectionBrush="White"
-                     BorderThickness="0,0,0,0" Text="Type here ..." InputScope="Default" CharacterCasing="Upper"
+                     BorderThickness="0,0,0,0" Text="{Binding Input, Mode=TwoWay}" InputScope="Default"
+                     CharacterCasing="Upper"
                      IsUndoEnabled="True" VerticalScrollBarVisibility="Auto" Padding="10,10,0,10" />
 
             <Label Grid.Row="2" x:Name="LblOutput" Content="OUTPUT" FontSize="12" FontWeight="Bold"
@@ -144,7 +144,7 @@
             <TextBox Grid.Row="3" x:Name="TxtBoxOutput" VerticalAlignment="Stretch"
                      HorizontalAlignment="Stretch"
                      HorizontalContentAlignment="Stretch" TextAlignment="Left" TextWrapping="WrapWithOverflow"
-                     Background="#FF27273A" FontSize="12"
+                     Background="#FF27273A" FontSize="12" Text="{Binding Output, Mode=TwoWay}"
                      BorderBrush="#00ABADB3" Foreground="White" SelectionTextBrush="#FF0078D7" SelectionBrush="White"
                      BorderThickness="0,0,0,0" InputScope="Default" CharacterCasing="Upper" IsReadOnly="True"
                      VerticalScrollBarVisibility="Auto" Padding="10,10,0,10" />

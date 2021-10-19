@@ -20,13 +20,41 @@ namespace CSharp_PlayFairCipher_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Cipher cipher;
+        private readonly Cipher _cipher;
 
         public MainWindow()
         {
             InitializeComponent();
-            cipher = new Cipher();
-            DataContext = cipher;
+            _cipher = new Cipher();
+            DataContext = _cipher;
+        }
+
+        private void BtnEnglish_OnClick(object sender, RoutedEventArgs e)
+        {
+            _cipher.Localization = true;
+            BtnEnglish.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
+            BtnCzech.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
+        }
+
+        private void BtnCzech_OnClick(object sender, RoutedEventArgs e)
+        {
+            _cipher.Localization = true;
+            BtnCzech.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
+            BtnEnglish.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
+        }
+
+        private void BtnEncryption_OnClick(object sender, RoutedEventArgs e)
+        {
+            _cipher.Mode = false;
+            BtnEncryption.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
+            BtnDecryption.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
+        }
+
+        private void BtnDecryption_OnClick(object sender, RoutedEventArgs e)
+        {
+            _cipher.Mode = true;
+            BtnDecryption.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
+            BtnEncryption.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
         }
     }
 }
