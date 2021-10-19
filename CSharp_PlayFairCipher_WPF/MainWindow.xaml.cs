@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,7 +32,7 @@ namespace CSharp_PlayFairCipher_WPF
 
         private void BtnEnglish_OnClick(object sender, RoutedEventArgs e)
         {
-            _cipher.Localization = true;
+            _cipher.Localization = false;
             BtnEnglish.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
             BtnCzech.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
         }
@@ -55,6 +56,18 @@ namespace CSharp_PlayFairCipher_WPF
             _cipher.Mode = true;
             BtnDecryption.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
             BtnEncryption.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
+        }
+
+        private void TxtBoxKeyWord_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (!e.Key.Equals(Key.Enter)) return;
+            TxtBoxKeyWord.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+        }
+
+        private void TxtBoxInput_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (!e.Key.Equals(Key.Enter)) return;
+            TxtBoxInput.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
     }
 }
