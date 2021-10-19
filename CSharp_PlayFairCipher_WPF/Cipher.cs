@@ -60,7 +60,16 @@ namespace CSharp_PlayFairCipher_WPF
         public string Output
         {
             get => _output;
-            set => Encrypt(ref _output, value);
+            set
+            {
+                if (Mode)
+                {
+                    Decrypt(ref _output, value);
+                    return;
+                }
+
+                Encrypt(ref _output, value);
+            }
         }
 
         public string KeyWord
@@ -294,6 +303,7 @@ namespace CSharp_PlayFairCipher_WPF
             store = s;
             BuildCharsMatrix();
             EncryptionDictionary.Clear();
+            DecryptionDictionary.Clear();
             Input = Input;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
@@ -484,6 +494,91 @@ namespace CSharp_PlayFairCipher_WPF
                             break;
                     }
                 }
+
+            return inStrBuilder.ToString();
+        }
+
+        public static Dictionary<string, string> DecryptionDictionary { get; set; } = new();
+
+        public void Decrypt(ref string store, string value, [CallerMemberName] string name = null)
+        {
+            var cipher = PrepareCipher(value);
+            if (Mod(cipher.Length, 2) > 0)
+            {
+                store = string.Empty;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            }
+
+            var cipherBuilder = new StringBuilder(cipher.Length);
+            for (var i = 0; i < cipher.Length; i += 2)
+            {
+                if (DecryptionDictionary.TryGetValue($"{cipher[i]}{cipher[i + 1]}", out var val))
+                {
+                    cipherBuilder.Append(val);
+                    continue;
+                }
+
+                int k = 0, l = 0, m = 0, n = 0;
+                while (k < 5)
+                {
+                    if (l.Equals(5))
+                    {
+                        l = 0;
+                        ++k;
+                    }
+
+                    if (cipher[i].Equals(Matrix[k, l])) break;
+                    ++l;
+                }
+
+                while (m < 5)
+                {
+                    if (n.Equals(5))
+                    {
+                        n = 0;
+                        ++m;
+                    }
+
+                    if (cipher[i + 1].Equals(Matrix[m, n])) break;
+                    ++n;
+                }
+
+                var resultDecrypt = Decrypt(ref k, ref l, ref m, ref n);
+                DecryptionDictionary.Add($"{cipher[i]}{cipher[i + 1]}", resultDecrypt);
+                cipherBuilder.Append(resultDecrypt);
+            }
+
+            foreach (var (key, val) in PostDecryptionFilterDictionary) cipherBuilder.Replace(key, val);
+
+            store = cipherBuilder.ToString();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private string Decrypt(ref int x1, ref int x2, ref int y1, ref int y2)
+        {
+            if (x1.Equals(y1)) return $"{Matrix[x1, Mod(x2 - 1, 5)]}{Matrix[y1, Mod(y2 - 1, 5)]}";
+
+            return x2.Equals(y2)
+                ? $"{Matrix[Mod(x1 - 1, 5), x2]}{Matrix[Mod(y1 - 1, 5), y2]}"
+                : $"{Matrix[x1, y2]}{Matrix[y1, x2]}";
+        }
+
+        private string PrepareCipher(string input)
+        {
+            IEnumerable<char> enumChars = Localization
+                ? new[] // CZ
+                {
+                    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+                    'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+                }
+                : new[] // EN
+                {
+                    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M',
+                    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+                };
+            var inStrBuilder = new StringBuilder(input.Length);
+            foreach (var c in input.Where(c => enumChars.Contains(char.ToUpper(c))))
+                inStrBuilder.Append(char.ToUpper(c));
 
             return inStrBuilder.ToString();
         }
