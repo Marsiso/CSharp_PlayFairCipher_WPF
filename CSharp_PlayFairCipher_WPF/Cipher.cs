@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Automation;
-using CSharp_PlayFairCipher_WPF.Annotations;
 
 namespace CSharp_PlayFairCipher_WPF
 {
@@ -17,6 +12,7 @@ namespace CSharp_PlayFairCipher_WPF
         private string _input;
         private string _output;
         private bool _localization;
+        private List<ItemMatrix> _listMatrixChars;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -33,18 +29,52 @@ namespace CSharp_PlayFairCipher_WPF
 
         public char[,] Matrix { set; get; }
 
-        public List<string> GetMatrixAsList()
+        public void SetListMatrixChars(ref List<ItemMatrix> store, List<ItemMatrix> value,
+            [CallerMemberName] string name = null)
         {
-            var listS = new List<string>();
+            var matrices = value ?? new List<ItemMatrix>(5);
             for (var i = 0; i < 5; i++)
             {
-                for (var j = 0; j < 5; j++)
-                {
-                    listS.Append(Matrix[i, j].ToString());
-                }
+                matrices.Add(new ItemMatrix(
+                    Matrix[i, 0].ToString(),
+                    Matrix[i, 1].ToString(),
+                    Matrix[i, 2].ToString(),
+                    Matrix[i, 3].ToString(),
+                    Matrix[i, 4].ToString()
+                ));
             }
 
-            return listS;
+            store = matrices;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public List<ItemMatrix> ListMatrixChars
+        {
+            get => _listMatrixChars;
+            set => SetListMatrixChars(ref _listMatrixChars, value);
+        }
+
+        public class ItemMatrix
+        {
+            public string Char0 { get; set; }
+            public string Char1 { get; set; }
+            public string Char2 { get; set; }
+            public string Char3 { get; set; }
+            public string Char4 { get; set; }
+
+            public ItemMatrix(string char0, string char1, string char2, string char3, string char4)
+            {
+                Char0 = char0;
+                Char1 = char1;
+                Char2 = char2;
+                Char3 = char3;
+                Char4 = char4;
+            }
+
+            public override string ToString()
+            {
+                return $"{Char0}  {Char1}  {Char2}  {Char3}  {Char4}";
+            }
         }
 
         public string Input
@@ -278,10 +308,13 @@ namespace CSharp_PlayFairCipher_WPF
                 {"XDEVETX", "9"},
                 {"XMEZERAX", " "}
             };
+            EncryptionDictionary = new Dictionary<string, string>();
+            DecryptionDictionary = new Dictionary<string, string>();
             Localization = false;
             _input = string.Empty;
             _output = string.Empty;
             BuildCharsMatrix();
+            ListMatrixChars = new List<ItemMatrix>();
             Input = @"Type here ...";
         }
 
@@ -302,6 +335,7 @@ namespace CSharp_PlayFairCipher_WPF
 
             store = s;
             BuildCharsMatrix();
+            ListMatrixChars = new List<ItemMatrix>();
             EncryptionDictionary.Clear();
             DecryptionDictionary.Clear();
             Input = Input;
@@ -333,7 +367,6 @@ namespace CSharp_PlayFairCipher_WPF
                 PostDecryptionFilterDictionary.Remove("XIEDNAX");
                 PostDecryptionFilterDictionary.Add("XJEDNAX", "1");
                 KeyWord = KeyWord;
-                //TODO Start rebuilding
                 return;
             }
 
@@ -349,7 +382,6 @@ namespace CSharp_PlayFairCipher_WPF
             PostDecryptionFilterDictionary.Remove("XJEDNAX");
             PostDecryptionFilterDictionary.Add("XIEDNAX", "1");
             KeyWord = KeyWord;
-            //TODO Start rebuilding
         }
 
         public void BuildCharsMatrix()
@@ -396,7 +428,7 @@ namespace CSharp_PlayFairCipher_WPF
                 : result;
         }
 
-        public Dictionary<string, string> EncryptionDictionary { get; set; } = new();
+        public Dictionary<string, string> EncryptionDictionary { get; set; }
 
         public void Encrypt(ref string store, string value, [CallerMemberName] string name = null)
         {
@@ -498,7 +530,7 @@ namespace CSharp_PlayFairCipher_WPF
             return inStrBuilder.ToString();
         }
 
-        public static Dictionary<string, string> DecryptionDictionary { get; set; } = new();
+        public Dictionary<string, string> DecryptionDictionary { get; set; }
 
         public void Decrypt(ref string store, string value, [CallerMemberName] string name = null)
         {

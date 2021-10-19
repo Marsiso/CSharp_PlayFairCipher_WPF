@@ -167,17 +167,46 @@
                    Foreground="White" HorizontalContentAlignment="Center"
                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FF33334C" />
 
-            <DataGrid Grid.Row="1" x:Name="DataGridMatrix" Background="Transparent" CanUserAddRows="False"
-                      CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False"
-                      CanUserResizeRows="False" CanUserSortColumns="False" />
+            <ListView Grid.Row="1" x:Name="ListViewMatrix" ItemsSource="{Binding ListMatrixChars, Mode=TwoWay}" 
+                      Background="Transparent" FontWeight="Bold" Foreground="White" 
+                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="{Binding Char0}" Width="20" 
+                                     VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+                            <TextBox Text="{Binding Char1}" Width="20" 
+                                     VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                            <TextBox Text="{Binding Char2}" Width="20" 
+                                     VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                            <TextBox Text="{Binding Char3}" Width="20" 
+                                     VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                            <TextBox Text="{Binding Char4}" Width="20" 
+                                     VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
             <Label Grid.Row="2" x:Name="LblFilter" Content="FILTER" FontSize="12" FontWeight="Bold"
                    Foreground="White" HorizontalContentAlignment="Center" Background="#FF33334C"
                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
-            <DataGrid Grid.Row="3" x:Name="DataGridFilter" Background="Transparent" CanUserAddRows="False"
-                      CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False"
-                      CanUserResizeRows="False" CanUserSortColumns="False" />
+            <ListView Grid.Row="3" x:Name="ListViewFilter" ItemsSource="{Binding ListMatrixChars, Mode=TwoWay}" 
+                      Background="Transparent" FontWeight="Bold" Foreground="White"
+                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="{Binding Char0}"/>
+                            <TextBox Text="{Binding Char1}"/>
+                            <TextBox Text="{Binding Char2}"/>
+                            <TextBox Text="{Binding Char3}"/>
+                            <TextBox Text="{Binding Char4}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
     </Grid>
 </Window>

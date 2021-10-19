@@ -23,6 +23,8 @@ namespace CSharp_PlayFairCipher_WPF
     {
         private readonly Cipher _cipher;
 
+        public List<Cipher.ItemMatrix> ListMatrixChars;
+
         public MainWindow()
         {
             InitializeComponent();
