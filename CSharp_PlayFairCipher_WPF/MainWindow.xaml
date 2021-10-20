@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CSharp_PlayFairCipher_WPF"
         mc:Ignorable="d"
-        Title="PlayFair Cipher" Width="1200" Height="800"
+        Title="PlayFair Cipher" MinWidth="900" MinHeight="600"
         VerticalAlignment="Stretch" Background="#FF27273A" WindowStyle="SingleBorderWindow"
         WindowStartupLocation="CenterScreen" Icon="/btnMenuTitle.Black.Image..png">
     <!--MAIN GRID-->
@@ -13,7 +13,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -46,7 +46,7 @@
                      HorizontalContentAlignment="Stretch" TextAlignment="Left" TextWrapping="Wrap"
                      Background="#FF27273A" FontSize="12" KeyDown="TxtBoxKeyWord_OnKeyDown"
                      BorderBrush="#00ABADB3" Foreground="White" SelectionTextBrush="#FF0078D7" SelectionBrush="White"
-                     BorderThickness="0,0,0,0" />
+                     BorderThickness="0,0,0,0" InputScope="Default" CharacterCasing="Upper" />
             <Label Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="60"
                    Background="{x:Null}" HorizontalContentAlignment="Center" />
         </Grid>
@@ -143,7 +143,7 @@
 
             <TextBox Grid.Row="3" x:Name="TxtBoxOutput" VerticalAlignment="Stretch"
                      HorizontalAlignment="Stretch"
-                     HorizontalContentAlignment="Stretch" TextAlignment="Left" TextWrapping="WrapWithOverflow"
+                     HorizontalContentAlignment="Stretch" TextAlignment="Left" TextWrapping="Wrap"
                      Background="#FF27273A" FontSize="12" Text="{Binding Output, Mode=TwoWay}"
                      BorderBrush="#00ABADB3" Foreground="White" SelectionTextBrush="#FF0078D7" SelectionBrush="White"
                      BorderThickness="0,0,0,0" InputScope="Default" CharacterCasing="Upper" IsReadOnly="True"
@@ -160,7 +160,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" x:Name="LblMatrix" Content="MATRIX" FontSize="12" FontWeight="Bold"
@@ -168,7 +168,7 @@
                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FF33334C" />
 
             <ListView Grid.Row="1" x:Name="ListViewMatrix" ItemsSource="{Binding ListMatrixChars, Mode=TwoWay}" 
-                      Background="Transparent" FontWeight="Bold" Foreground="White" 
+                      Background="Transparent" FontWeight="Bold" Foreground="White"  
                       VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -192,21 +192,31 @@
                    Foreground="White" HorizontalContentAlignment="Center" Background="#FF33334C"
                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
-            <ListView Grid.Row="3" x:Name="ListViewFilter" ItemsSource="{Binding ListMatrixChars, Mode=TwoWay}" 
-                      Background="Transparent" FontWeight="Bold" Foreground="White"
-                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox Text="{Binding Char0}"/>
-                            <TextBox Text="{Binding Char1}"/>
-                            <TextBox Text="{Binding Char2}"/>
-                            <TextBox Text="{Binding Char3}"/>
-                            <TextBox Text="{Binding Char4}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <ListView Grid.Row="3" x:Name="ListViewFilter" ItemsSource="{Binding ListFilteredChars, Mode=TwoWay}" 
+                          Background="Transparent" FontWeight="Bold" Foreground="White"
+                          VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                          ScrollViewer.CanContentScroll="False">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="IN" Width="50" DisplayMemberBinding="{Binding Key}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" 
+                                                   HorizontalAlignment="Center"  VerticalAlignment="Stretch"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="OUT" Width="50" DisplayMemberBinding="{Binding Value}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                    <TextBlock Text="{Binding}" TextWrapping="WrapWithOverflow" TextAlignment="Center" 
+                                               HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
         </Grid>
     </Grid>
 </Window>

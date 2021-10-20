@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows.Annotations.Storage;
 
 namespace CSharp_PlayFairCipher_WPF
 {
@@ -12,7 +14,8 @@ namespace CSharp_PlayFairCipher_WPF
         private string _input;
         private string _output;
         private bool _localization;
-        private List<ItemMatrix> _listMatrixChars;
+        private List<MatrixRowItem> _listMatrixChars;
+        private List<KeyAndValue> _listFilteredChars;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,17 +28,35 @@ namespace CSharp_PlayFairCipher_WPF
         public Dictionary<char, string> EncryptionFilterDictionary { get; private set; }
         public Dictionary<char, char> DecryptionFilterDictionary { get; private set; }
         public Dictionary<string, string> PostDecryptionFilterDictionary { get; private set; }
+
         public bool Mode { get; set; }
+
+        public List<KeyAndValue> ListFilteredChars
+        {
+            get => _listFilteredChars;
+            set => SetFilteredChars(ref _listFilteredChars, value);
+        }
 
         public char[,] Matrix { set; get; }
 
-        public void SetListMatrixChars(ref List<ItemMatrix> store, List<ItemMatrix> value,
+        public void SetFilteredChars(ref List<KeyAndValue> store, List<KeyAndValue> value,
             [CallerMemberName] string name = null)
         {
-            var matrices = value ?? new List<ItemMatrix>(5);
+            value ??= new List<KeyAndValue>();
+            value.AddRange(Mode
+                ? DecryptionFilterDictionary.Select(pair => new KeyAndValue(pair.Key.ToString(), pair.Value.ToString()))
+                : EncryptionFilterDictionary.Select(pair => new KeyAndValue(pair.Key.ToString(), pair.Value)));
+            store = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public void SetListMatrixChars(ref List<MatrixRowItem> store, List<MatrixRowItem> value,
+            [CallerMemberName] string name = null)
+        {
+            value ??= new List<MatrixRowItem>(5);
             for (var i = 0; i < 5; i++)
             {
-                matrices.Add(new ItemMatrix(
+                value.Add(new MatrixRowItem(
                     Matrix[i, 0].ToString(),
                     Matrix[i, 1].ToString(),
                     Matrix[i, 2].ToString(),
@@ -44,17 +65,34 @@ namespace CSharp_PlayFairCipher_WPF
                 ));
             }
 
-            store = matrices;
+            store = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public List<ItemMatrix> ListMatrixChars
+        public List<MatrixRowItem> ListMatrixChars
         {
             get => _listMatrixChars;
             set => SetListMatrixChars(ref _listMatrixChars, value);
         }
 
-        public class ItemMatrix
+        public class KeyAndValue
+        {
+            public string Key { get; set; }
+            public string Value { get; set; }
+
+            public KeyAndValue(string key, string value)
+            {
+                Key = key;
+                Value = value;
+            }
+
+            public override string ToString()
+            {
+                return $"{Key}-->{Value}";
+            }
+        }
+
+        public class MatrixRowItem
         {
             public string Char0 { get; set; }
             public string Char1 { get; set; }
@@ -62,7 +100,7 @@ namespace CSharp_PlayFairCipher_WPF
             public string Char3 { get; set; }
             public string Char4 { get; set; }
 
-            public ItemMatrix(string char0, string char1, string char2, string char3, string char4)
+            public MatrixRowItem(string char0, string char1, string char2, string char3, string char4)
             {
                 Char0 = char0;
                 Char1 = char1;
@@ -314,8 +352,9 @@ namespace CSharp_PlayFairCipher_WPF
             _input = string.Empty;
             _output = string.Empty;
             BuildCharsMatrix();
-            ListMatrixChars = new List<ItemMatrix>();
-            Input = @"Type here ...";
+            ListMatrixChars = new List<MatrixRowItem>();
+            ListFilteredChars = new List<KeyAndValue>();
+            Input = @"TYPE HERE ...";
         }
 
         public void SetKeyWord(ref string store, string value, [CallerMemberName] string name = null)
@@ -335,7 +374,8 @@ namespace CSharp_PlayFairCipher_WPF
 
             store = s;
             BuildCharsMatrix();
-            ListMatrixChars = new List<ItemMatrix>();
+            ListMatrixChars = new List<MatrixRowItem>();
+            ListFilteredChars = new List<KeyAndValue>();
             EncryptionDictionary.Clear();
             DecryptionDictionary.Clear();
             Input = Input;
@@ -351,8 +391,8 @@ namespace CSharp_PlayFairCipher_WPF
 
         private void SetLocalization(ref bool store, bool value)
         {
-            if (Localization.Equals(value)) return;
-            _localization = value;
+            if (store.Equals(value)) return;
+            store = value;
             if (value)
             {
                 EncryptionFilterDictionary['j'] = "J";

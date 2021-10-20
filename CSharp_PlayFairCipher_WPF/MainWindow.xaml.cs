@@ -23,7 +23,7 @@ namespace CSharp_PlayFairCipher_WPF
     {
         private readonly Cipher _cipher;
 
-        public List<Cipher.ItemMatrix> ListMatrixChars;
+        public List<Cipher.MatrixRowItem> ListMatrixChars;
 
         public MainWindow()
         {
@@ -37,6 +37,8 @@ namespace CSharp_PlayFairCipher_WPF
             _cipher.Localization = false;
             BtnEnglish.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
             BtnCzech.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
+            ListViewMatrix.Items.Refresh();
+            ListViewFilter.Items.Refresh();
         }
 
         private void BtnCzech_OnClick(object sender, RoutedEventArgs e)
@@ -44,6 +46,8 @@ namespace CSharp_PlayFairCipher_WPF
             _cipher.Localization = true;
             BtnCzech.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
             BtnEnglish.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
+            ListViewMatrix.Items.Refresh();
+            ListViewFilter.Items.Refresh();
         }
 
         private void BtnEncryption_OnClick(object sender, RoutedEventArgs e)
@@ -51,6 +55,8 @@ namespace CSharp_PlayFairCipher_WPF
             _cipher.Mode = false;
             BtnEncryption.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
             BtnDecryption.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
+            ListViewMatrix.Items.Refresh();
+            ListViewFilter.Items.Refresh();
         }
 
         private void BtnDecryption_OnClick(object sender, RoutedEventArgs e)
@@ -58,12 +64,16 @@ namespace CSharp_PlayFairCipher_WPF
             _cipher.Mode = true;
             BtnDecryption.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
             BtnEncryption.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
+            ListViewMatrix.Items.Refresh();
+            ListViewFilter.Items.Refresh();
         }
 
         private void TxtBoxKeyWord_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (!e.Key.Equals(Key.Enter)) return;
             TxtBoxKeyWord.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+            ListViewMatrix.Items.Refresh();
+            ListViewFilter.Items.Refresh();
         }
 
         private void TxtBoxInput_OnKeyDown(object sender, KeyEventArgs e)
