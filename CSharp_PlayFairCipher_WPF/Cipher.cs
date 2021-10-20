@@ -22,12 +22,19 @@ namespace CSharp_PlayFairCipher_WPF
         public bool Localization
         {
             get => _localization;
-            set => SetLocalization(ref _localization, value);
+            set
+            {
+                if (_localization.Equals(value)) return;
+                _localization = value;
+                SetLocalization(value);
+            }
         }
 
-        public Dictionary<char, string> EncryptionFilterDictionary { get; private set; }
-        public Dictionary<char, char> DecryptionFilterDictionary { get; private set; }
-        public Dictionary<string, string> PostDecryptionFilterDictionary { get; private set; }
+        public Dictionary<char, string> EncryptionFilterDictionary { get; }
+        public Dictionary<char, char> DecryptionFilterDictionary { get; }
+        public Dictionary<string, string> PostDecryptionFilterDictionary { get; }
+        public Dictionary<string, string> EncryptionDictionary { get; set; }
+        public Dictionary<string, string> DecryptionDictionary { get; set; }
 
         public bool Mode { get; set; }
 
@@ -149,7 +156,12 @@ namespace CSharp_PlayFairCipher_WPF
         public Cipher()
         {
             _keyWord = string.Empty;
-            KeyWord = string.Empty;
+            _input = string.Empty;
+            _output = string.Empty;
+            _listMatrixChars = new List<MatrixRowItem>();
+            _listFilteredChars = new List<KeyAndValue>();
+            _localization = false;
+            Mode = false;
             EncryptionFilterDictionary = new Dictionary<char, string>
             {
                 {'a', "A"},
@@ -348,9 +360,7 @@ namespace CSharp_PlayFairCipher_WPF
             };
             EncryptionDictionary = new Dictionary<string, string>();
             DecryptionDictionary = new Dictionary<string, string>();
-            Localization = false;
-            _input = string.Empty;
-            _output = string.Empty;
+            KeyWord = string.Empty;
             BuildCharsMatrix();
             ListMatrixChars = new List<MatrixRowItem>();
             ListFilteredChars = new List<KeyAndValue>();
@@ -369,16 +379,13 @@ namespace CSharp_PlayFairCipher_WPF
                 stringBuilder.Append(val);
             }
 
-            var s = stringBuilder.ToString();
-            if (store.Equals(s)) return;
-
-            store = s;
+            store = stringBuilder.ToString();
             BuildCharsMatrix();
             ListMatrixChars = new List<MatrixRowItem>();
             ListFilteredChars = new List<KeyAndValue>();
             EncryptionDictionary.Clear();
             DecryptionDictionary.Clear();
-            Input = Input;
+            Input = _input;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
@@ -389,10 +396,8 @@ namespace CSharp_PlayFairCipher_WPF
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        private void SetLocalization(ref bool store, bool value)
+        private void SetLocalization(bool value)
         {
-            if (store.Equals(value)) return;
-            store = value;
             if (value)
             {
                 EncryptionFilterDictionary['j'] = "J";
@@ -406,22 +411,23 @@ namespace CSharp_PlayFairCipher_WPF
                 DecryptionFilterDictionary['Q'] = 'K';
                 PostDecryptionFilterDictionary.Remove("XIEDNAX");
                 PostDecryptionFilterDictionary.Add("XJEDNAX", "1");
-                KeyWord = KeyWord;
-                return;
+                KeyWord = _keyWord;
             }
-
-            EncryptionFilterDictionary['q'] = "Q";
-            EncryptionFilterDictionary['Q'] = "Q";
-            EncryptionFilterDictionary['j'] = "I";
-            EncryptionFilterDictionary['J'] = "I";
-            EncryptionFilterDictionary['1'] = "XIEDNAX";
-            DecryptionFilterDictionary['q'] = 'Q';
-            DecryptionFilterDictionary['Q'] = 'Q';
-            DecryptionFilterDictionary['j'] = 'I';
-            DecryptionFilterDictionary['J'] = 'I';
-            PostDecryptionFilterDictionary.Remove("XJEDNAX");
-            PostDecryptionFilterDictionary.Add("XIEDNAX", "1");
-            KeyWord = KeyWord;
+            else
+            {
+                EncryptionFilterDictionary['q'] = "Q";
+                EncryptionFilterDictionary['Q'] = "Q";
+                EncryptionFilterDictionary['j'] = "I";
+                EncryptionFilterDictionary['J'] = "I";
+                EncryptionFilterDictionary['1'] = "XIEDNAX";
+                DecryptionFilterDictionary['q'] = 'Q';
+                DecryptionFilterDictionary['Q'] = 'Q';
+                DecryptionFilterDictionary['j'] = 'I';
+                DecryptionFilterDictionary['J'] = 'I';
+                PostDecryptionFilterDictionary.Remove("XJEDNAX");
+                PostDecryptionFilterDictionary.Add("XIEDNAX", "1");
+                KeyWord = _keyWord;
+            }
         }
 
         public void BuildCharsMatrix()
@@ -468,15 +474,13 @@ namespace CSharp_PlayFairCipher_WPF
                 : result;
         }
 
-        public Dictionary<string, string> EncryptionDictionary { get; set; }
-
         public void Encrypt(ref string store, string value, [CallerMemberName] string name = null)
         {
-            var openText = PrepareOpenText(value);
-            var cipherBuilder = new StringBuilder(openText.Length);
-            for (var i = 0; i < openText.Length; i += 2)
+            value = PrepareOpenText(value);
+            var cipherBuilder = new StringBuilder(value.Length);
+            for (var i = 0; i < value.Length; i += 2)
             {
-                if (EncryptionDictionary.TryGetValue($"{openText[i]}{openText[i + 1]}", out var val))
+                if (EncryptionDictionary.TryGetValue($"{value[i]}{value[i + 1]}", out var val))
                 {
                     cipherBuilder.Append(val);
                     continue;
@@ -491,7 +495,7 @@ namespace CSharp_PlayFairCipher_WPF
                         ++k;
                     }
 
-                    if (openText[i].Equals(Matrix[k, l])) break;
+                    if (value[i].Equals(Matrix[k, l])) break;
                     ++l;
                 }
 
@@ -503,12 +507,12 @@ namespace CSharp_PlayFairCipher_WPF
                         ++m;
                     }
 
-                    if (openText[i + 1].Equals(Matrix[m, n])) break;
+                    if (value[i + 1].Equals(Matrix[m, n])) break;
                     ++n;
                 }
 
                 var resultEncrypt = Encrypt(ref k, ref l, ref m, ref n);
-                EncryptionDictionary.Add($"{openText[i]}{openText[i + 1]}", resultEncrypt);
+                EncryptionDictionary.Add($"{value[i]}{value[i + 1]}", resultEncrypt);
                 cipherBuilder.Append(resultEncrypt);
             }
 
@@ -569,8 +573,6 @@ namespace CSharp_PlayFairCipher_WPF
 
             return inStrBuilder.ToString();
         }
-
-        public Dictionary<string, string> DecryptionDictionary { get; set; }
 
         public void Decrypt(ref string store, string value, [CallerMemberName] string name = null)
         {
