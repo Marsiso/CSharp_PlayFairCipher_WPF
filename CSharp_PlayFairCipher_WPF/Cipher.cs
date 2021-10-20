@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Windows.Annotations.Storage;
 
 namespace CSharp_PlayFairCipher_WPF
 {
@@ -73,7 +71,6 @@ namespace CSharp_PlayFairCipher_WPF
         {
             value ??= new List<MatrixRowItem>(5);
             for (var i = 0; i < 5; i++)
-            {
                 value.Add(new MatrixRowItem(
                     Matrix[i, 0].ToString(),
                     Matrix[i, 1].ToString(),
@@ -81,7 +78,6 @@ namespace CSharp_PlayFairCipher_WPF
                     Matrix[i, 3].ToString(),
                     Matrix[i, 4].ToString()
                 ));
-            }
 
             store = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -450,6 +446,51 @@ namespace CSharp_PlayFairCipher_WPF
                 : $"{Matrix[x1, y2]}{Matrix[y1, x2]}";
         }
 
+        //private string PrepareOpenText(string input)
+        //{
+        //    var inStrBuilder = new StringBuilder(input.Length << 1);
+        //    foreach (var key in input)
+        //        if (EncryptionFilterDictionary.TryGetValue(key, out var value))
+        //            inStrBuilder.Append(value);
+
+        //    for (var i = 0; i < inStrBuilder.Length; ++i)
+        //        // Merge ifs and switches
+        //        if (i.Equals(inStrBuilder.Length - 1) && Mod(inStrBuilder.Length, 2) == 0)
+        //        {
+        //            return inStrBuilder.ToString();
+        //        }
+        //        else if (i.Equals(inStrBuilder.Length - 1) && Mod(inStrBuilder.Length, 2) > 0)
+        //        {
+        //            var c = inStrBuilder[^1];
+        //            switch (c)
+        //            {
+        //                case 'X':
+        //                    inStrBuilder.Append('Y');
+        //                    return inStrBuilder.ToString();
+
+        //                default:
+        //                    inStrBuilder.Append('X');
+        //                    return inStrBuilder.ToString();
+        //            }
+        //        }
+        //        else if (inStrBuilder[i].Equals(inStrBuilder[i + 1]))
+        //        {
+        //            var c = inStrBuilder[i];
+        //            switch (c)
+        //            {
+        //                case 'X':
+        //                    inStrBuilder.Insert(i + 1, 'Y');
+        //                    break;
+
+        //                default:
+        //                    inStrBuilder.Insert(i + 1, 'X');
+        //                    break;
+        //            }
+        //        }
+
+        //    return inStrBuilder.ToString();
+        //}
+
         private string PrepareOpenText(string input)
         {
             var inStrBuilder = new StringBuilder(input.Length << 1);
@@ -458,39 +499,38 @@ namespace CSharp_PlayFairCipher_WPF
                     inStrBuilder.Append(value);
 
             for (var i = 0; i < inStrBuilder.Length; ++i)
-                // Merge ifs and switches
-                if (i.Equals(inStrBuilder.Length - 1) && Mod(inStrBuilder.Length, 2) == 0)
-                {
-                    return inStrBuilder.ToString();
-                }
-                else if (i.Equals(inStrBuilder.Length - 1) && Mod(inStrBuilder.Length, 2) > 0)
-                {
-                    var c = inStrBuilder[^1];
-                    switch (c)
-                    {
-                        case 'X':
-                            inStrBuilder.Append('Y');
-                            return inStrBuilder.ToString();
+            {
+                var isFinishedAndEven = i.Equals(inStrBuilder.Length - 1) && Mod(inStrBuilder.Length, 2) == 0;
+                var isFinishedAndOdd = i.Equals(inStrBuilder.Length - 1) && Mod(inStrBuilder.Length, 2) > 0;
+                var isTwoNearbyCharNonDistinct = !isFinishedAndEven && !isFinishedAndOdd &&
+                                                 inStrBuilder[i].Equals(inStrBuilder[i + 1]);
+                var c = inStrBuilder[i];
 
-                        default:
-                            inStrBuilder.Append('X');
-                            return inStrBuilder.ToString();
-                    }
-                }
-                else if (inStrBuilder[i].Equals(inStrBuilder[i + 1]))
+                switch (b1: isFinishedAndEven, b2: isFinishedAndOdd, b3: isTwoNearbyCharNonDistinct, c)
                 {
-                    var c = inStrBuilder[i];
-                    switch (c)
-                    {
-                        case 'X':
-                            inStrBuilder.Insert(i + 1, 'Y');
-                            break;
+                    case (true, _, _, _):
+                        return inStrBuilder.ToString();
 
-                        default:
-                            inStrBuilder.Insert(i + 1, 'X');
-                            break;
-                    }
+                    case (false, true, _, 'X'):
+                        inStrBuilder.Append('Y');
+                        return inStrBuilder.ToString();
+
+                    case (false, true, _, _):
+                        inStrBuilder.Append('X');
+                        return inStrBuilder.ToString();
+
+                    case (false, false, true, 'X'):
+                        inStrBuilder.Insert(i + 1, 'Y');
+                        break;
+
+                    case (false, false, true, _):
+                        inStrBuilder.Insert(i + 1, 'X');
+                        break;
+
+                    case (false, false, false, _):
+                        continue;
                 }
+            }
 
             return inStrBuilder.ToString();
         }

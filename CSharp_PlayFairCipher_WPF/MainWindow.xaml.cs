@@ -30,6 +30,7 @@ namespace CSharp_PlayFairCipher_WPF
 
         private void BtnCzech_OnClick(object sender, RoutedEventArgs e)
         {
+            _cipher.Localization = true;
             BtnCzech.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
             BtnEnglish.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
             ListViewMatrix.Items.Refresh();
