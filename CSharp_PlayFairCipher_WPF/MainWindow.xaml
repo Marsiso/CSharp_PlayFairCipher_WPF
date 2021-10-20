@@ -209,11 +209,9 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="0" BorderBrush="Transparent"
-                    BorderThickness="0"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    CornerRadius="5">
+            <Border Grid.Row="0" BorderBrush="Transparent" Background="#FF33334C"
+                    BorderThickness="0" VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch" CornerRadius="0">
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
                     <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\btnMenuTitle.Image.png" 
@@ -245,11 +243,9 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Border Grid.Row="2" BorderBrush="Transparent"
-                    BorderThickness="0"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    CornerRadius="5">
+            <Border Grid.Row="2" BorderBrush="Transparent" Background="#FF33334C"
+                    BorderThickness="0" VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch" CornerRadius="0">
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
                     <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\btnMenuTitle.Image.png" 
