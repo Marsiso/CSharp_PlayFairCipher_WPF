@@ -16,6 +16,7 @@ namespace CSharp_PlayFairCipher_WPF
         private bool _localization;
         private List<MatrixRowItem> _listMatrixChars;
         private List<KeyAndValue> _listFilteredChars;
+        private bool _mode;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,7 +37,17 @@ namespace CSharp_PlayFairCipher_WPF
         public Dictionary<string, string> EncryptionDictionary { get; set; }
         public Dictionary<string, string> DecryptionDictionary { get; set; }
 
-        public bool Mode { get; set; }
+        public bool Mode
+        {
+            get => _mode;
+            set => SetMode(value);
+        }
+
+        private void SetMode(bool value)
+        {
+            _mode = value;
+            ListFilteredChars = new List<KeyAndValue>();
+        }
 
         public List<KeyAndValue> ListFilteredChars
         {
@@ -161,60 +172,34 @@ namespace CSharp_PlayFairCipher_WPF
             _listMatrixChars = new List<MatrixRowItem>();
             _listFilteredChars = new List<KeyAndValue>();
             _localization = false;
-            Mode = false;
+            _mode = false;
             EncryptionFilterDictionary = new Dictionary<char, string>
             {
-                {'a', "A"},
                 {'A', "A"},
-                {'b', "B"},
                 {'B', "B"},
-                {'c', "C"},
                 {'C', "C"},
-                {'d', "D"},
                 {'D', "D"},
-                {'e', "E"},
                 {'E', "E"},
-                {'f', "F"},
                 {'F', "F"},
-                {'g', "G"},
                 {'G', "G"},
-                {'h', "H"},
                 {'H', "H"},
-                {'i', "I"},
                 {'I', "I"},
-                {'j', "I"},
                 {'J', "I"},
-                {'k', "K"},
                 {'K', "K"},
-                {'l', "L"},
                 {'L', "L"},
-                {'m', "M"},
                 {'M', "M"},
-                {'n', "N"},
                 {'N', "N"},
-                {'o', "O"},
                 {'O', "O"},
-                {'p', "P"},
                 {'P', "P"},
-                {'q', "Q"},
                 {'Q', "Q"},
-                {'r', "R"},
                 {'R', "R"},
-                {'s', "S"},
                 {'S', "S"},
-                {'t', "T"},
                 {'T', "T"},
-                {'u', "U"},
                 {'U', "U"},
-                {'v', "V"},
                 {'V', "V"},
-                {'w', "W"},
                 {'W', "W"},
-                {'x', "X"},
                 {'X', "X"},
-                {'y', "Y"},
                 {'Y', "Y"},
-                {'z', "Z"},
                 {'Z', "Z"},
                 {'0', "XNULAX"},
                 {'1', "XIEDNAX"},
@@ -226,122 +211,66 @@ namespace CSharp_PlayFairCipher_WPF
                 {'7', "XSEDUMX"},
                 {'8', "XOSUMX"},
                 {'9', "XDEVETX"},
-                {'á', "A"},
                 {'Á', "A"},
-                {'č', "C"},
                 {'Č', "C"},
-                {'ď', "D"},
                 {'Ď', "D"},
-                {'é', "E"},
                 {'É', "E"},
-                {'ě', "E"},
                 {'Ě', "E"},
-                {'í', "I"},
                 {'Í', "I"},
-                {'ň', "N"},
                 {'Ň', "N"},
-                {'ó', "O"},
                 {'Ó', "O"},
-                {'ř', "R"},
                 {'Ř', "R"},
-                {'š', "S"},
                 {'Š', "S"},
-                {'ť', "T"},
                 {'Ť', "T"},
-                {'ú', "U"},
                 {'Ú', "U"},
-                {'ů', "U"},
                 {'Ů', "U"},
-                {'ý', "Y"},
                 {'Ý', "Y"},
-                {'ž', "Z"},
                 {'Ž', "Z"},
                 {' ', "XMEZERAX"},
                 {'\n', "XMEZERAX"}
             };
             DecryptionFilterDictionary = new Dictionary<char, char>
             {
-                {'a', 'A'},
                 {'A', 'A'},
-                {'b', 'B'},
                 {'B', 'B'},
-                {'c', 'C'},
                 {'C', 'C'},
-                {'d', 'D'},
                 {'D', 'D'},
-                {'e', 'E'},
                 {'E', 'E'},
-                {'f', 'F'},
                 {'F', 'F'},
-                {'g', 'G'},
                 {'G', 'G'},
-                {'h', 'H'},
                 {'H', 'H'},
-                {'i', 'I'},
                 {'I', 'I'},
-                {'j', 'I'},
                 {'J', 'I'},
-                {'k', 'K'},
                 {'K', 'K'},
-                {'l', 'L'},
                 {'L', 'L'},
-                {'m', 'M'},
                 {'M', 'M'},
-                {'n', 'N'},
                 {'N', 'N'},
-                {'o', 'O'},
                 {'O', 'O'},
-                {'p', 'P'},
                 {'P', 'P'},
-                {'q', 'Q'},
                 {'Q', 'Q'},
-                {'r', 'R'},
                 {'R', 'R'},
-                {'s', 'S'},
                 {'S', 'S'},
-                {'t', 'T'},
                 {'T', 'T'},
-                {'u', 'U'},
                 {'U', 'U'},
-                {'v', 'V'},
                 {'V', 'V'},
-                {'w', 'W'},
                 {'W', 'W'},
-                {'x', 'X'},
                 {'X', 'X'},
-                {'y', 'Y'},
                 {'Y', 'Y'},
-                {'z', 'Z'},
                 {'Z', 'Z'},
-                {'á', 'A'},
                 {'Á', 'A'},
-                {'č', 'C'},
                 {'Č', 'C'},
-                {'ď', 'D'},
                 {'Ď', 'D'},
-                {'é', 'E'},
                 {'É', 'E'},
-                {'ě', 'E'},
                 {'Ě', 'E'},
-                {'í', 'I'},
                 {'Í', 'I'},
-                {'ň', 'N'},
                 {'Ň', 'N'},
-                {'ó', 'O'},
                 {'Ó', 'O'},
-                {'ř', 'R'},
                 {'Ř', 'R'},
-                {'š', 'S'},
                 {'Š', 'S'},
-                {'ť', 'T'},
                 {'Ť', 'T'},
-                {'ú', 'U'},
                 {'Ú', 'U'},
-                {'ů', 'U'},
                 {'Ů', 'U'},
-                {'ý', 'Y'},
                 {'Ý', 'Y'},
-                {'ž', 'Z'},
                 {'Ž', 'Z'}
             };
             PostDecryptionFilterDictionary = new Dictionary<string, string>()
@@ -400,14 +329,10 @@ namespace CSharp_PlayFairCipher_WPF
         {
             if (value)
             {
-                EncryptionFilterDictionary['j'] = "J";
                 EncryptionFilterDictionary['J'] = "J";
-                EncryptionFilterDictionary['q'] = "K";
                 EncryptionFilterDictionary['Q'] = "K";
                 EncryptionFilterDictionary['1'] = "XJEDNAX";
-                DecryptionFilterDictionary['j'] = 'J';
                 DecryptionFilterDictionary['J'] = 'J';
-                DecryptionFilterDictionary['q'] = 'K';
                 DecryptionFilterDictionary['Q'] = 'K';
                 PostDecryptionFilterDictionary.Remove("XIEDNAX");
                 PostDecryptionFilterDictionary.Add("XJEDNAX", "1");
@@ -415,14 +340,10 @@ namespace CSharp_PlayFairCipher_WPF
             }
             else
             {
-                EncryptionFilterDictionary['q'] = "Q";
                 EncryptionFilterDictionary['Q'] = "Q";
-                EncryptionFilterDictionary['j'] = "I";
                 EncryptionFilterDictionary['J'] = "I";
                 EncryptionFilterDictionary['1'] = "XIEDNAX";
-                DecryptionFilterDictionary['q'] = 'Q';
                 DecryptionFilterDictionary['Q'] = 'Q';
-                DecryptionFilterDictionary['j'] = 'I';
                 DecryptionFilterDictionary['J'] = 'I';
                 PostDecryptionFilterDictionary.Remove("XJEDNAX");
                 PostDecryptionFilterDictionary.Add("XIEDNAX", "1");
@@ -581,6 +502,7 @@ namespace CSharp_PlayFairCipher_WPF
             {
                 store = string.Empty;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+                return;
             }
 
             var cipherBuilder = new StringBuilder(cipher.Length);

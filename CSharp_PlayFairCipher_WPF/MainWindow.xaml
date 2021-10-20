@@ -198,7 +198,7 @@
                           ScrollViewer.CanContentScroll="False">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="IN" Width="50" DisplayMemberBinding="{Binding Key}">
+                            <GridViewColumn Header="IN" DisplayMemberBinding="{Binding Key}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" 
@@ -206,7 +206,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="OUT" Width="50" DisplayMemberBinding="{Binding Value}">
+                            <GridViewColumn Header="OUT" DisplayMemberBinding="{Binding Value}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                     <TextBlock Text="{Binding}" TextWrapping="WrapWithOverflow" TextAlignment="Center" 
