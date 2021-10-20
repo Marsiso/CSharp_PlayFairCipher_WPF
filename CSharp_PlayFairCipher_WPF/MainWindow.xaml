@@ -64,12 +64,36 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Label Grid.Column="0" x:Name="LblLocalization" Content="LOCALIZATION" FontSize="12" FontWeight="Bold"
-                   Foreground="White" HorizontalContentAlignment="Center"
-                   VerticalAlignment="Center" HorizontalAlignment="Center" />
-            <Label Grid.Column="1" x:Name="LblMode" Content="MODE" FontSize="12" FontWeight="Bold"
-                   Foreground="White" HorizontalContentAlignment="Center"
-                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Border Grid.Column="0" BorderBrush="Transparent"
+                    BorderThickness="0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    CornerRadius="5">
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+
+                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\localization_white.png" 
+                           Height="18"/>
+                    <Label x:Name="LblLocalization" Content="LOCALIZATION" FontSize="12" FontWeight="Bold"
+                           Foreground="White" 
+                           VerticalContentAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="1" BorderBrush="Transparent"
+                    BorderThickness="0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    CornerRadius="5">
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+
+                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\btnMenuSettings.Image.png" 
+                           Height="18"/>
+                    <Label x:Name="LblMode" Content="MODE" FontSize="12" FontWeight="Bold"
+                           Foreground="White" HorizontalContentAlignment="Center"
+                           VerticalContentAlignment="Center" />
+                </StackPanel>
+            </Border>
         </Grid>
 
         <!--BUTTON GRID-->
@@ -124,9 +148,20 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" x:Name="LblInput" Content="INPUT" FontSize="12" FontWeight="Bold"
-                   Foreground="White" HorizontalContentAlignment="Center"
-                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Border Grid.Row="0" BorderBrush="Transparent"
+                    BorderThickness="0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    CornerRadius="5">
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\input_white.png" 
+                           Height="18"/>
+                    <Label x:Name="LblInput" Content="INPUT" FontSize="12" FontWeight="Bold"
+                           Foreground="White" HorizontalContentAlignment="Center"
+                           VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
 
             <TextBox Grid.Row="1" x:Name="TxtBoxInput" VerticalAlignment="Stretch"
                      HorizontalAlignment="Stretch"
@@ -137,9 +172,20 @@
                      CharacterCasing="Upper" KeyDown="TxtBoxInput_OnKeyDown"
                      IsUndoEnabled="True" VerticalScrollBarVisibility="Auto" Padding="10,10,0,10" />
 
-            <Label Grid.Row="2" x:Name="LblOutput" Content="OUTPUT" FontSize="12" FontWeight="Bold"
-                   Foreground="White" HorizontalContentAlignment="Center"
-                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Border Grid.Row="2" BorderBrush="Transparent"
+                    BorderThickness="0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    CornerRadius="5">
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\output_white.png" 
+                           Height="18"/>
+                    <Label x:Name="LblOutput" Content="OUTPUT" FontSize="12" FontWeight="Bold"
+                           Foreground="White" HorizontalContentAlignment="Center"
+                           VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
 
             <TextBox Grid.Row="3" x:Name="TxtBoxOutput" VerticalAlignment="Stretch"
                      HorizontalAlignment="Stretch"
@@ -163,9 +209,20 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" x:Name="LblMatrix" Content="MATRIX" FontSize="12" FontWeight="Bold"
-                   Foreground="White" HorizontalContentAlignment="Center"
-                   VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FF33334C" />
+            <Border Grid.Row="0" BorderBrush="Transparent"
+                    BorderThickness="0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    CornerRadius="5">
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\btnMenuTitle.Image.png" 
+                           Height="18"/>
+                    <Label x:Name="LblMatrix" Content="MATRIX" FontSize="12" FontWeight="Bold"
+                           Foreground="White" HorizontalContentAlignment="Center"
+                           VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FF33334C" />
+                </StackPanel>
+            </Border>
 
             <ListView Grid.Row="1" x:Name="ListViewMatrix" ItemsSource="{Binding ListMatrixChars, Mode=TwoWay}" 
                       Background="Transparent" FontWeight="Bold" Foreground="White"  
@@ -188,14 +245,25 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Label Grid.Row="2" x:Name="LblFilter" Content="FILTER" FontSize="12" FontWeight="Bold"
-                   Foreground="White" HorizontalContentAlignment="Center" Background="#FF33334C"
-                   VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+            <Border Grid.Row="2" BorderBrush="Transparent"
+                    BorderThickness="0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    CornerRadius="5">
+                <StackPanel Margin="5"
+                            Orientation="Horizontal">
+                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\btnMenuTitle.Image.png" 
+                           Height="18"/>
+                    <Label x:Name="LblFilter" Content="FILTER" FontSize="12" FontWeight="Bold"
+                           Foreground="White" HorizontalContentAlignment="Center" Background="#FF33334C"
+                           VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                </StackPanel>
+            </Border>
 
             <ListView Grid.Row="3" x:Name="ListViewFilter" ItemsSource="{Binding ListFilteredChars, Mode=TwoWay}" 
-                          Background="Transparent" FontWeight="Bold" Foreground="White"
-                          VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                          ScrollViewer.CanContentScroll="False">
+                      Background="Transparent" FontWeight="Bold" Foreground="White"
+                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      ScrollViewer.CanContentScroll="False">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
