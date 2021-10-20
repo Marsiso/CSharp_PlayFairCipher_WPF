@@ -434,6 +434,11 @@ namespace CSharp_PlayFairCipher_WPF
                 cipherBuilder.Append(resultEncrypt);
             }
 
+            for (int i = 6; i < cipherBuilder.Length; i += 7)
+            {
+                cipherBuilder.Insert(i, " ");
+            }
+
             store = cipherBuilder.ToString();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

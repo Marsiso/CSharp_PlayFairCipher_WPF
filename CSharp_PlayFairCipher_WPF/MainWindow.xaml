@@ -196,21 +196,26 @@
                           Background="Transparent" FontWeight="Bold" Foreground="White"
                           VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Visible"
                           ScrollViewer.CanContentScroll="False">
-                    <ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
                         <GridView>
                             <GridViewColumn Header="IN" DisplayMemberBinding="{Binding Key}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" 
-                                                   HorizontalAlignment="Center"  VerticalAlignment="Stretch" FontSize="12"/>
+                                                   HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="12"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="OUT" DisplayMemberBinding="{Binding Value}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                    <TextBlock Text="{Binding}" TextWrapping="WrapWithOverflow" TextAlignment="Center" 
-                                               HorizontalAlignment="Center" VerticalAlignment="Stretch" FontSize="12" />
+                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" TextAlignment="Center" 
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
