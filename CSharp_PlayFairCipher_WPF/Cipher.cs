@@ -55,6 +55,7 @@ namespace CSharp_PlayFairCipher_WPF
 
         public char[,] Matrix { set; get; }
 
+        // ReSharper disable once RedundantAssignment
         public void SetFilteredChars(ref List<KeyAndValue> store, List<KeyAndValue> value,
             [CallerMemberName] string name = null)
         {
@@ -445,51 +446,6 @@ namespace CSharp_PlayFairCipher_WPF
                 ? $"{Matrix[Mod(x1 + 1, 5), x2]}{Matrix[Mod(y1 + 1, 5), y2]}"
                 : $"{Matrix[x1, y2]}{Matrix[y1, x2]}";
         }
-
-        //private string PrepareOpenText(string input)
-        //{
-        //    var inStrBuilder = new StringBuilder(input.Length << 1);
-        //    foreach (var key in input)
-        //        if (EncryptionFilterDictionary.TryGetValue(key, out var value))
-        //            inStrBuilder.Append(value);
-
-        //    for (var i = 0; i < inStrBuilder.Length; ++i)
-        //        // Merge ifs and switches
-        //        if (i.Equals(inStrBuilder.Length - 1) && Mod(inStrBuilder.Length, 2) == 0)
-        //        {
-        //            return inStrBuilder.ToString();
-        //        }
-        //        else if (i.Equals(inStrBuilder.Length - 1) && Mod(inStrBuilder.Length, 2) > 0)
-        //        {
-        //            var c = inStrBuilder[^1];
-        //            switch (c)
-        //            {
-        //                case 'X':
-        //                    inStrBuilder.Append('Y');
-        //                    return inStrBuilder.ToString();
-
-        //                default:
-        //                    inStrBuilder.Append('X');
-        //                    return inStrBuilder.ToString();
-        //            }
-        //        }
-        //        else if (inStrBuilder[i].Equals(inStrBuilder[i + 1]))
-        //        {
-        //            var c = inStrBuilder[i];
-        //            switch (c)
-        //            {
-        //                case 'X':
-        //                    inStrBuilder.Insert(i + 1, 'Y');
-        //                    break;
-
-        //                default:
-        //                    inStrBuilder.Insert(i + 1, 'X');
-        //                    break;
-        //            }
-        //        }
-
-        //    return inStrBuilder.ToString();
-        //}
 
         private string PrepareOpenText(string input)
         {
