@@ -86,7 +86,7 @@
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
 
-                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\btnMenuSettings.Image.png"
+                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\switch_white.png"
                            Height="18" />
                     <Label x:Name="LblMode" Content="MODE" FontSize="12" FontWeight="Bold"
                            Foreground="White" HorizontalContentAlignment="Center"
@@ -221,21 +221,21 @@
                 </StackPanel>
             </Border>
 
-            <ListView Grid.Row="1" x:Name="ListViewMatrix" ItemsSource="{Binding ListMatrixChars, Mode=TwoWay}"
+            <ListView Grid.Row="1" x:Name="ListViewMatrix" ItemsSource="{Binding ObservableCollectionMatrixChars, Mode=TwoWay}"
                       Background="Transparent" FontWeight="Bold" Foreground="White"
                       VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Text="{Binding Char0}" Width="20" FontSize="12"
+                            <TextBox Text="{Binding Char0}" Width="20" FontSize="12" IsReadOnly="True"
                                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
-                            <TextBox Text="{Binding Char1}" Width="20" FontSize="12"
+                            <TextBox Text="{Binding Char1}" Width="20" FontSize="12" IsReadOnly="True"
                                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
-                            <TextBox Text="{Binding Char2}" Width="20" FontSize="12"
+                            <TextBox Text="{Binding Char2}" Width="20" FontSize="12" IsReadOnly="True"
                                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
-                            <TextBox Text="{Binding Char3}" Width="20" FontSize="12"
+                            <TextBox Text="{Binding Char3}" Width="20" FontSize="12" IsReadOnly="True"
                                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
-                            <TextBox Text="{Binding Char4}" Width="20" FontSize="12"
+                            <TextBox Text="{Binding Char4}" Width="20" FontSize="12" IsReadOnly="True"
                                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
                         </StackPanel>
                     </DataTemplate>
@@ -255,7 +255,7 @@
                 </StackPanel>
             </Border>
 
-            <ListView Grid.Row="3" x:Name="ListViewFilter" ItemsSource="{Binding ListFilteredChars, Mode=TwoWay}"
+            <ListView Grid.Row="3" x:Name="ListViewFilter" ItemsSource="{Binding ObservableCollectionFilteredChars, Mode=TwoWay}"
                       Background="Transparent" FontWeight="Bold" Foreground="White"
                       VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                       ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -263,6 +263,16 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="true" >
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="Transparent" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="Transparent" />
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.View>

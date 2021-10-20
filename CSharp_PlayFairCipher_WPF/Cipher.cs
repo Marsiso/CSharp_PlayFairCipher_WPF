@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -12,8 +13,8 @@ namespace CSharp_PlayFairCipher_WPF
         private string _input;
         private string _output;
         private bool _localization;
-        private List<MatrixRowItem> _listMatrixChars;
-        private List<KeyAndValue> _listFilteredChars;
+        private ObservableCollection<MatrixRowItem> _observableCollectionMatrixChars;
+        private ObservableCollection<KeyAndValue> _observableCollectionFilteredChars;
         private bool _mode;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -44,33 +45,46 @@ namespace CSharp_PlayFairCipher_WPF
         private void SetMode(bool value)
         {
             _mode = value;
-            ListFilteredChars = new List<KeyAndValue>();
+            ObservableCollectionFilteredChars = new ObservableCollection<KeyAndValue>();
         }
 
-        public List<KeyAndValue> ListFilteredChars
+        public ObservableCollection<MatrixRowItem> ObservableCollectionMatrixChars
         {
-            get => _listFilteredChars;
-            set => SetFilteredChars(ref _listFilteredChars, value);
+            get => _observableCollectionMatrixChars;
+            set => SetListMatrixChars(ref _observableCollectionMatrixChars, value);
+        }
+
+        public ObservableCollection<KeyAndValue> ObservableCollectionFilteredChars
+        {
+            get => _observableCollectionFilteredChars;
+            set => SetFilteredChars(ref _observableCollectionFilteredChars, value);
         }
 
         public char[,] Matrix { set; get; }
 
         // ReSharper disable once RedundantAssignment
-        public void SetFilteredChars(ref List<KeyAndValue> store, List<KeyAndValue> value,
+        public void SetFilteredChars(ref ObservableCollection<KeyAndValue> store,
+            ObservableCollection<KeyAndValue> value,
             [CallerMemberName] string name = null)
         {
-            value ??= new List<KeyAndValue>();
-            value.AddRange(Mode
-                ? DecryptionFilterDictionary.Select(pair => new KeyAndValue(pair.Key.ToString(), pair.Value.ToString()))
-                : EncryptionFilterDictionary.Select(pair => new KeyAndValue(pair.Key.ToString(), pair.Value)));
+            value ??= new ObservableCollection<KeyAndValue>();
+            if (Mode)
+                foreach (var keyValuePair in DecryptionFilterDictionary)
+                    value.Add(new KeyAndValue(keyValuePair.Key.ToString(), keyValuePair.Value.ToString()));
+            else
+                foreach (var keyValuePair in EncryptionFilterDictionary)
+                    value.Add(new KeyAndValue(keyValuePair.Key.ToString(), keyValuePair.Value));
+
             store = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public void SetListMatrixChars(ref List<MatrixRowItem> store, List<MatrixRowItem> value,
+        // ReSharper disable once RedundantAssignment
+        public void SetListMatrixChars(ref ObservableCollection<MatrixRowItem> store,
+            ObservableCollection<MatrixRowItem> value,
             [CallerMemberName] string name = null)
         {
-            value ??= new List<MatrixRowItem>(5);
+            value ??= new ObservableCollection<MatrixRowItem>();
             for (var i = 0; i < 5; i++)
                 value.Add(new MatrixRowItem(
                     Matrix[i, 0].ToString(),
@@ -82,12 +96,6 @@ namespace CSharp_PlayFairCipher_WPF
 
             store = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
-        public List<MatrixRowItem> ListMatrixChars
-        {
-            get => _listMatrixChars;
-            set => SetListMatrixChars(ref _listMatrixChars, value);
         }
 
         public class KeyAndValue
@@ -166,8 +174,8 @@ namespace CSharp_PlayFairCipher_WPF
             _keyWord = string.Empty;
             _input = string.Empty;
             _output = string.Empty;
-            _listMatrixChars = new List<MatrixRowItem>();
-            _listFilteredChars = new List<KeyAndValue>();
+            _observableCollectionMatrixChars = new ObservableCollection<MatrixRowItem>();
+            _observableCollectionFilteredChars = new ObservableCollection<KeyAndValue>();
             _localization = false;
             _mode = false;
             EncryptionFilterDictionary = new Dictionary<char, string>
@@ -288,11 +296,12 @@ namespace CSharp_PlayFairCipher_WPF
             DecryptionDictionary = new Dictionary<string, string>();
             KeyWord = string.Empty;
             BuildCharsMatrix();
-            ListMatrixChars = new List<MatrixRowItem>();
-            ListFilteredChars = new List<KeyAndValue>();
+            ObservableCollectionMatrixChars = new ObservableCollection<MatrixRowItem>();
+            ObservableCollectionFilteredChars = new ObservableCollection<KeyAndValue>();
             Input = @"TYPE HERE ...";
         }
 
+        // ReSharper disable once RedundantAssignment
         public void SetKeyWord(ref string store, string value, [CallerMemberName] string name = null)
         {
             var counterChars = new Dictionary<char, int>();
@@ -307,8 +316,8 @@ namespace CSharp_PlayFairCipher_WPF
 
             store = stringBuilder.ToString();
             BuildCharsMatrix();
-            ListMatrixChars = new List<MatrixRowItem>();
-            ListFilteredChars = new List<KeyAndValue>();
+            ObservableCollectionMatrixChars = new ObservableCollection<MatrixRowItem>();
+            ObservableCollectionFilteredChars = new ObservableCollection<KeyAndValue>();
             EncryptionDictionary.Clear();
             DecryptionDictionary.Clear();
             Input = _input;
@@ -392,6 +401,7 @@ namespace CSharp_PlayFairCipher_WPF
                 : result;
         }
 
+        // ReSharper disable once RedundantAssignment
         public void Encrypt(ref string store, string value, [CallerMemberName] string name = null)
         {
             value = PrepareOpenText(value);
@@ -434,10 +444,7 @@ namespace CSharp_PlayFairCipher_WPF
                 cipherBuilder.Append(resultEncrypt);
             }
 
-            for (int i = 6; i < cipherBuilder.Length; i += 7)
-            {
-                cipherBuilder.Insert(i, " ");
-            }
+            for (var i = 6; i < cipherBuilder.Length; i += 7) cipherBuilder.Insert(i, " ");
 
             store = cipherBuilder.ToString();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -496,6 +503,7 @@ namespace CSharp_PlayFairCipher_WPF
             return inStrBuilder.ToString();
         }
 
+        // ReSharper disable once RedundantAssignment
         public void Decrypt(ref string store, string value, [CallerMemberName] string name = null)
         {
             var cipher = PrepareCipher(value);
