@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="PlayFair Cipher" MinWidth="900" MinHeight="600"
         VerticalAlignment="Stretch" Background="#FF27273A" WindowStyle="SingleBorderWindow"
-        WindowStartupLocation="CenterScreen" Icon="/btnMenuTitle.Black.Image..png">
+        WindowStartupLocation="CenterScreen" Icon="Images/btnMenuTitle.Black.Image.png">
     <!--MAIN GRID-->
     <Grid>
         <Grid.ColumnDefinitions>

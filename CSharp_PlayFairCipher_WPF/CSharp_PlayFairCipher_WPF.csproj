@@ -7,15 +7,29 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="btnMenuTitle.Black.Image..png" />
+    <None Remove="Images\btnMenuTitle.Black.Image.png" />
+    <None Remove="Images\btnMenuTitle.Image.png" />
+    <None Remove="Images\copy_white.png" />
+    <None Remove="Images\input_white.png" />
+    <None Remove="Images\localization_white.png" />
+    <None Remove="Images\open_white.png" />
+    <None Remove="Images\output_white.png" />
+    <None Remove="Images\save_white.png" />
+    <None Remove="Images\switch_white.png" />
+    <None Remove="Images\switch_white_2 %282%29.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="btnMenuTitle.Black.Image..png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Images\" />
+    <Resource Include="Images\btnMenuTitle.Black.Image.png" />
+    <Resource Include="Images\btnMenuTitle.Image.png" />
+    <Resource Include="Images\copy_white.png" />
+    <Resource Include="Images\input_white.png" />
+    <Resource Include="Images\localization_white.png" />
+    <Resource Include="Images\open_white.png" />
+    <Resource Include="Images\output_white.png" />
+    <Resource Include="Images\save_white.png" />
+    <Resource Include="Images\switch_white.png" />
+    <Resource Include="Images\switch_white_2 (2).png" />
   </ItemGroup>
 
 </Project>
