@@ -186,6 +186,15 @@
                 </StackPanel>
             </Border>
 
+            <Button Grid.Row="0" x:Name="BtnLoad" VerticalAlignment="Stretch" Width="30"
+                    HorizontalAlignment="Right" Foreground="White" BorderBrush="Transparent" 
+                    BorderThickness="0" FontWeight="Bold" Background="Transparent" 
+                    Click="BtnLoad_OnClick" Margin="0,0,10,0" ToolTip="Load">
+                <StackPanel>
+                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\open_white.png" Height="20" />
+                </StackPanel>
+            </Button>
+
             <Grid Grid.Row="2" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
