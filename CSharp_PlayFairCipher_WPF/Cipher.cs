@@ -9,6 +9,9 @@ namespace CSharp_PlayFairCipher_WPF
 {
     public class Cipher : INotifyPropertyChanged
     {
+        // Necessary class member for proper functionality 
+        #region MainBody
+
         private string _keyWord;
         private string _input;
         private string _output;
@@ -400,6 +403,10 @@ namespace CSharp_PlayFairCipher_WPF
                 ? result + m
                 : result;
         }
+        
+        #endregion
+        // Encrypts open text
+        #region Encryption
 
         // ReSharper disable once RedundantAssignment
         public void Encrypt(ref string store, string value, [CallerMemberName] string name = null)
@@ -502,7 +509,11 @@ namespace CSharp_PlayFairCipher_WPF
 
             return inStrBuilder.ToString();
         }
-
+        
+        #endregion
+        // Decrypts cipher message
+        #region Decryption
+        
         // ReSharper disable once RedundantAssignment
         public void Decrypt(ref string store, string value, [CallerMemberName] string name = null)
         {
@@ -587,5 +598,7 @@ namespace CSharp_PlayFairCipher_WPF
 
             return inStrBuilder.ToString();
         }
+        
+        #endregion
     }
 }
