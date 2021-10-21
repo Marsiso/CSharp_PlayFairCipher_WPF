@@ -107,11 +107,12 @@
             </Grid.RowDefinitions>
 
             <Button x:Name="BtnEnglish" Grid.Column="0" Content="ENGLISH" VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch" Background="DarkGreen" Foreground="White"
-                    FontWeight="Bold" Click="BtnEnglish_OnClick" />
+                    HorizontalAlignment="Stretch" Background="#FF5978BB" Foreground="White"
+                    FontWeight="Bold" Click="BtnEnglish_OnClick" BorderBrush="Transparent" 
+                    BorderThickness="0" />
             <Button x:Name="BtnCzech" Grid.Column="1" Content="CZECH" VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch" Foreground="White"
-                    FontWeight="Bold" Background="#FF960000" Click="BtnCzech_OnClick" />
+                    HorizontalAlignment="Stretch" Foreground="White" BorderBrush="Transparent" BorderThickness="0"
+                    FontWeight="Bold" Background="#FF8D8D9D" Click="BtnCzech_OnClick" />
         </Grid>
 
         <!--BTN GRID-->
@@ -126,11 +127,12 @@
             </Grid.RowDefinitions>
 
             <Button x:Name="BtnEncryption" Grid.Column="0" Content="ENCRYPTION" VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch" Background="DarkGreen" Foreground="White"
+                    HorizontalAlignment="Stretch" Background="#FF5978BB" Foreground="White" BorderBrush="Transparent" 
+                    BorderThickness="0"
                     FontWeight="Bold" Click="BtnEncryption_OnClick" />
             <Button x:Name="BtnDecryption" Grid.Column="1" Content="DECRYPTION" VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch" Foreground="White"
-                    FontWeight="Bold" Background="#FF960000" Click="BtnDecryption_OnClick" />
+                    HorizontalAlignment="Stretch" Foreground="White" BorderBrush="Transparent" 
+                    BorderThickness="0" FontWeight="Bold" Background="#FF8D8D9D" Click="BtnDecryption_OnClick" />
         </Grid>
 
         <!--INPUT/OUTPUT GRID-->

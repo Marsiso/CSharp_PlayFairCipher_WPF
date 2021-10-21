@@ -24,29 +24,29 @@ namespace CSharp_PlayFairCipher_WPF
         private void BtnEnglish_OnClick(object sender, RoutedEventArgs e)
         {
             _cipher.Localization = false;
-            BtnEnglish.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
-            BtnCzech.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
+            BtnEnglish.Background = new SolidColorBrush(Color.FromRgb(89, 120, 187));
+            BtnCzech.Background = new SolidColorBrush(Color.FromRgb(141, 141, 157));
         }
 
         private void BtnCzech_OnClick(object sender, RoutedEventArgs e)
         {
             _cipher.Localization = true;
-            BtnCzech.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
-            BtnEnglish.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
+            BtnCzech.Background = new SolidColorBrush(Color.FromRgb(89, 120, 187));
+            BtnEnglish.Background = new SolidColorBrush(Color.FromRgb(141, 141, 157));
         }
 
         private void BtnEncryption_OnClick(object sender, RoutedEventArgs e)
         {
             _cipher.Mode = false;
-            BtnEncryption.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
-            BtnDecryption.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
+            BtnEncryption.Background = new SolidColorBrush(Color.FromRgb(89, 120, 187));
+            BtnDecryption.Background = new SolidColorBrush(Color.FromRgb(141, 141, 157));
         }
 
         private void BtnDecryption_OnClick(object sender, RoutedEventArgs e)
         {
             _cipher.Mode = true;
-            BtnDecryption.Background = new SolidColorBrush(Color.FromRgb(0, 100, 0));
-            BtnEncryption.Background = new SolidColorBrush(Color.FromRgb(150, 0, 0));
+            BtnDecryption.Background = new SolidColorBrush(Color.FromRgb(89, 120, 187));
+            BtnEncryption.Background = new SolidColorBrush(Color.FromRgb(141, 141, 157));
         }
 
         private void TxtBoxKeyWord_OnKeyDown(object sender, KeyEventArgs e)
