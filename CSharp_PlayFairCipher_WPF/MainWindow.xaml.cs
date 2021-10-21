@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using Microsoft.Win32;
 
 namespace CSharp_PlayFairCipher_WPF
 {
@@ -56,6 +58,29 @@ namespace CSharp_PlayFairCipher_WPF
         {
             if (!e.Key.Equals(Key.Enter)) return;
             TxtBoxInput.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+        }
+
+        private void BtnSave_OnClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == true)
+                File.WriteAllText(saveFileDialog.FileName, _cipher.Output);
+        }
+
+        private void BtnCopy_OnClick(object sender, RoutedEventArgs e)
+        {
+            Clipboard.Clear();
+            Clipboard.SetText(_cipher.Output);
+        }
+
+        private void BtnSwitch_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_cipher.Mode)
+                BtnEncryption_OnClick(BtnEncryption, new RoutedEventArgs(null));
+            else
+                BtnDecryption_OnClick(BtnDecryption, new RoutedEventArgs(null));
+
+            _cipher.Input = _cipher.Output;
         }
     }
 }

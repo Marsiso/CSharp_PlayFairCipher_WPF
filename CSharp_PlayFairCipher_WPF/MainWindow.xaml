@@ -72,7 +72,7 @@
                             Orientation="Horizontal">
 
                     <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\localization_white.png"
-                           Height="18" />
+                           Height="20" />
                     <Label x:Name="LblLocalization" Content="LOCALIZATION" FontSize="12" FontWeight="Bold"
                            Foreground="White"
                            VerticalContentAlignment="Center" />
@@ -87,7 +87,7 @@
                             Orientation="Horizontal">
 
                     <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\switch_white.png"
-                           Height="18" />
+                           Height="20" />
                     <Label x:Name="LblMode" Content="MODE" FontSize="12" FontWeight="Bold"
                            Foreground="White" HorizontalContentAlignment="Center"
                            VerticalContentAlignment="Center" />
@@ -155,7 +155,7 @@
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
                     <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\input_white.png"
-                           Height="18" />
+                           Height="22" />
                     <Label x:Name="LblInput" Content="INPUT" FontSize="12" FontWeight="Bold"
                            Foreground="White" HorizontalContentAlignment="Center"
                            VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -179,12 +179,47 @@
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
                     <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\output_white.png"
-                           Height="18" />
+                           Height="22" />
                     <Label x:Name="LblOutput" Content="OUTPUT" FontSize="12" FontWeight="Bold"
                            Foreground="White" HorizontalContentAlignment="Center"
                            VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </StackPanel>
             </Border>
+
+            <Grid Grid.Row="2" HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Button x:Name="BtnSwitch" Grid.Column="0" VerticalAlignment="Stretch" BorderBrush="Transparent"
+                        BorderThickness="0" HorizontalAlignment="Stretch" Background="Transparent" 
+                        Foreground="White" Width="30" FontWeight="Bold" Click="BtnSwitch_OnClick" ToolTip="Copy to input">
+                    <StackPanel>
+                        <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\switch_white_2 (2).png" Height="22" />
+                    </StackPanel>
+                </Button>
+                <Button x:Name="BtnCopy" Grid.Column="1" VerticalAlignment="Stretch" BorderBrush="Transparent" 
+                        BorderThickness="0" HorizontalAlignment="Stretch" Background="Transparent" 
+                        Foreground="White" Width="30" FontWeight="Bold" Click="BtnCopy_OnClick" ToolTip="Copy">
+                    <StackPanel>
+                        <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\copy_white.png" Height="18" />
+                    </StackPanel>
+                </Button>
+                <Button x:Name="BtnSave" Grid.Column="2" VerticalAlignment="Stretch" Width="30"
+                        HorizontalAlignment="Stretch" Foreground="White" BorderBrush="Transparent" 
+                        BorderThickness="0" FontWeight="Bold" Background="Transparent" 
+                        Click="BtnSave_OnClick" Margin="0,0,10,0" ToolTip="Save">
+                    <StackPanel>
+                        <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\save_white.png" Height="22" />
+                    </StackPanel>
+                </Button>
+            </Grid>
 
             <TextBox Grid.Row="3" x:Name="TxtBoxOutput" VerticalAlignment="Stretch"
                      HorizontalAlignment="Stretch"
@@ -208,21 +243,23 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="0" BorderBrush="Transparent" Background="#FF33334C"
+            <Rectangle Grid.Row="0" Grid.RowSpan="4" Fill="#FF33334C" />
+
+            <Border Grid.Row="0" BorderBrush="Transparent" Background="Transparent"
                     BorderThickness="0" VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch" CornerRadius="0">
+                    HorizontalAlignment="Center" CornerRadius="0">
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
                     <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\btnMenuTitle.Image.png"
-                           Height="18" />
+                           Height="20" />
                     <Label x:Name="LblMatrix" Content="MATRIX" FontSize="12" FontWeight="Bold"
                            Foreground="White" HorizontalContentAlignment="Center"
-                           VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FF33334C" />
+                           VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" />
                 </StackPanel>
             </Border>
 
             <ListView Grid.Row="1" x:Name="ListViewMatrix" ItemsSource="{Binding ObservableCollectionMatrixChars, Mode=TwoWay}"
-                      Background="Transparent" FontWeight="Bold" Foreground="White"
+                      Background="#FF27273A" FontWeight="Bold" Foreground="White"
                       VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -242,21 +279,21 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Border Grid.Row="2" BorderBrush="Transparent" Background="#FF33334C"
+            <Border Grid.Row="2" BorderBrush="Transparent" Background="Transparent"
                     BorderThickness="0" VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch" CornerRadius="0">
+                    HorizontalAlignment="Center" CornerRadius="0">
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
                     <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\btnMenuTitle.Image.png"
-                           Height="18" />
+                           Height="20" />
                     <Label x:Name="LblFilter" Content="FILTER" FontSize="12" FontWeight="Bold"
-                           Foreground="White" HorizontalContentAlignment="Center" Background="#FF33334C"
-                           VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                           Foreground="White" HorizontalContentAlignment="Center" Background="Transparent"
+                           VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </StackPanel>
             </Border>
 
             <ListView Grid.Row="3" x:Name="ListViewFilter" ItemsSource="{Binding ObservableCollectionFilteredChars, Mode=TwoWay}"
-                      Background="Transparent" FontWeight="Bold" Foreground="White"
+                      Background="#FF27273A" FontWeight="Bold" Foreground="White"
                       VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                       ScrollViewer.VerticalScrollBarVisibility="Visible"
                       ScrollViewer.CanContentScroll="False">
