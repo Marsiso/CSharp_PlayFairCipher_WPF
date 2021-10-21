@@ -93,7 +93,7 @@ namespace CSharp_PlayFairCipher_WPF
             openFileDialog.Filter = "Text file (*.txt)|*.txt|Data file (*.dat)|*.dat";
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (openFileDialog.ShowDialog() == true)
-                _cipher.Input = File.ReadAllText(openFileDialog.FileName);
+                _cipher.Input = File.ReadAllText(openFileDialog.FileName).ToUpper();
         }
     }
 }
