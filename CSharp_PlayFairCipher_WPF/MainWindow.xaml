@@ -71,7 +71,7 @@
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
 
-                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\localization_white.png"
+                    <Image Source="Images\localization_white.png"
                            Height="20" />
                     <Label x:Name="LblLocalization" Content="LOCALIZATION" FontSize="12" FontWeight="Bold"
                            Foreground="White"
@@ -86,7 +86,7 @@
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
 
-                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\switch_white.png"
+                    <Image Source="Images\switch_white.png"
                            Height="20" />
                     <Label x:Name="LblMode" Content="MODE" FontSize="12" FontWeight="Bold"
                            Foreground="White" HorizontalContentAlignment="Center"
@@ -156,7 +156,7 @@
                     CornerRadius="5">
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\input_white.png"
+                    <Image Source="Images\input_white.png"
                            Height="22" />
                     <Label x:Name="LblInput" Content="INPUT" FontSize="12" FontWeight="Bold"
                            Foreground="White" HorizontalContentAlignment="Center"
@@ -180,7 +180,7 @@
                     CornerRadius="5">
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\output_white.png"
+                    <Image Source="Images\output_white.png"
                            Height="22" />
                     <Label x:Name="LblOutput" Content="OUTPUT" FontSize="12" FontWeight="Bold"
                            Foreground="White" HorizontalContentAlignment="Center"
@@ -193,7 +193,7 @@
                     BorderThickness="0" FontWeight="Bold" Background="Transparent" 
                     Click="BtnLoad_OnClick" Margin="0,0,10,0" ToolTip="Load">
                 <StackPanel>
-                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\open_white.png" Height="20" />
+                    <Image Source="Images\open_white.png" Height="20" />
                 </StackPanel>
             </Button>
 
@@ -212,7 +212,7 @@
                         BorderThickness="0" HorizontalAlignment="Stretch" Background="Transparent" 
                         Foreground="White" Width="30" FontWeight="Bold" Click="BtnSwitch_OnClick" ToolTip="Copy to input">
                     <StackPanel>
-                        <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\switch_white_2 (2).png" Height="22" />
+                        <Image Source="Images\switch_white_2 (2).png" Height="22" />
                     </StackPanel>
                 </Button>
                 <Button x:Name="BtnCopy" Grid.Column="1" VerticalAlignment="Stretch" BorderBrush="Transparent" 
@@ -227,7 +227,7 @@
                         BorderThickness="0" FontWeight="Bold" Background="Transparent" 
                         Click="BtnSave_OnClick" Margin="0,0,10,0" ToolTip="Save">
                     <StackPanel>
-                        <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\save_white.png" Height="22" />
+                        <Image Source="Images\save_white.png" Height="22" />
                     </StackPanel>
                 </Button>
             </Grid>
@@ -261,7 +261,7 @@
                     HorizontalAlignment="Center" CornerRadius="0">
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\btnMenuTitle.Image.png"
+                    <Image Source="Images\btnMenuTitle.Image.png"
                            Height="20" />
                     <Label x:Name="LblMatrix" Content="MATRIX" FontSize="12" FontWeight="Bold"
                            Foreground="White" HorizontalContentAlignment="Center"
@@ -295,7 +295,7 @@
                     HorizontalAlignment="Center" CornerRadius="0">
                 <StackPanel Margin="5"
                             Orientation="Horizontal">
-                    <Image Source="C:\Users\molsak\Pictures\PlayFairIcons\btnMenuTitle.Image.png"
+                    <Image Source="Images\btnMenuTitle.Image.png"
                            Height="20" />
                     <Label x:Name="LblFilter" Content="FILTER" FontSize="12" FontWeight="Bold"
                            Foreground="White" HorizontalContentAlignment="Center" Background="Transparent"
